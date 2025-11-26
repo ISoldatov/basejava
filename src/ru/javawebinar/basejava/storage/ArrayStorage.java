@@ -1,17 +1,12 @@
-package com.urise.webapp.storage;
+package ru.javawebinar.basejava.storage;
 
-import com.urise.webapp.model.Resume;
+import ru.javawebinar.basejava.model.Resume;
 import java.util.Arrays;
 
 /**
  * Array based storage for Resumes.
  */
-public class ArrayStorage implements Storage {
-    private static final int STORAGE_LIMIT = 10000;
-
-    private final Resume[] storage = new Resume[STORAGE_LIMIT];
-
-    private int size = 0;
+public class ArrayStorage extends AbstractArrayStorage {
 
     public void clear() {
         if (size > 0) {
@@ -40,14 +35,7 @@ public class ArrayStorage implements Storage {
         }
     }
 
-    public Resume get(String uuid) {
-        int index = getIndex(uuid);
-        if (index < 0) {
-            System.out.println("ОШИБКА! Резюме с uuid=" + uuid + " отсутсвует в хранилище.");
-            return null;
-        }
-        return storage[index];
-    }
+
 
     public void delete(String uuid) {
         int index = getIndex(uuid);
@@ -68,11 +56,7 @@ public class ArrayStorage implements Storage {
         return Arrays.copyOfRange(storage, 0, size);
     }
 
-    public int size() {
-        return size;
-    }
-
-    private int getIndex(String uuid) {
+    protected int getIndex(String uuid) {
         for (int i = 0; i < size; i++) {
             if (storage[i].getUuid().equals(uuid)) {
                 return i;
