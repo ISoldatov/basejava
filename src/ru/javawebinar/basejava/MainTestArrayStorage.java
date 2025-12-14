@@ -9,25 +9,35 @@ public class MainTestArrayStorage {
 
     public static void main(String[] args) {
         final Resume r1 = new Resume();
-        r1.setUuid("uuid2");
+        r1.setUuid("uuid1");
         final Resume r2 = new Resume();
-        r2.setUuid("uuid3");
+        r2.setUuid("uuid2");
         final Resume r3 = new Resume();
-        r3.setUuid("uuid1");
+        r3.setUuid("uuid3");
+        final Resume r4 = new Resume();
+        r4.setUuid("uuid3");
 
-        ARRAY_STORAGE.save(r1);
+        System.out.println("Save r2,r3,r1:");
         ARRAY_STORAGE.save(r2);
         ARRAY_STORAGE.save(r3);
+        ARRAY_STORAGE.save(r1);
+        printAll();
+
+        System.out.println("Update r4(uuid3)");
+        ARRAY_STORAGE.update(r4);
+        printAll();
 
         System.out.println("Get r1: " + ARRAY_STORAGE.get(r1.getUuid()));
         System.out.println("Size: " + ARRAY_STORAGE.size());
-
+        System.out.println("Get dummy:");
         System.out.println("Get dummy: " + ARRAY_STORAGE.get("dummy"));
 
-        printAll();
-        System.out.println("\nDelete r1: " + r1.getUuid());
+        System.out.println();
+        System.out.println("Delete r1: " + r1.getUuid());
         ARRAY_STORAGE.delete(r1.getUuid());
         printAll();
+
+        System.out.println("Clear");
         ARRAY_STORAGE.clear();
         printAll();
 
@@ -35,9 +45,10 @@ public class MainTestArrayStorage {
     }
 
     static void printAll() {
-        System.out.println("\nGet All");
+        System.out.println("Get All");
         for (Resume r : ARRAY_STORAGE.getAll()) {
             System.out.println(r);
         }
+        System.out.println();
     }
 }

@@ -1,12 +1,8 @@
 package ru.javawebinar.basejava.storage;
 
 import ru.javawebinar.basejava.model.Resume;
-
 import java.util.Arrays;
 
-/**
- * Array based storage for Resumes.
- */
 public abstract class AbstractArrayStorage implements Storage {
     protected static final int STORAGE_LIMIT = 10000;
 
@@ -22,6 +18,15 @@ public abstract class AbstractArrayStorage implements Storage {
         } else {
             saveResume(r, index);
             size++;
+        }
+    }
+
+    public void update(Resume r) {
+        int index = getIndex(r.getUuid());
+        if (index < 0) {
+            System.out.println("ОШИБКА! Резюме с uuid=" + r.getUuid() + " отсутсвует в хранилище.");
+        } else {
+            storage[index] = r;
         }
     }
 

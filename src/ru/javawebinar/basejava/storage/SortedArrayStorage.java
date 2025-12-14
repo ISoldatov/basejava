@@ -1,7 +1,6 @@
 package ru.javawebinar.basejava.storage;
 
 import ru.javawebinar.basejava.model.Resume;
-
 import java.util.Arrays;
 
 public class SortedArrayStorage extends AbstractArrayStorage {
@@ -14,15 +13,8 @@ public class SortedArrayStorage extends AbstractArrayStorage {
 
     @Override
     public void saveResume(Resume r, int index) {
-        storage[-1*(index+1)] = r;
+        int insertIndex = -1 * (index + 1);
+        System.arraycopy(storage, insertIndex, storage, insertIndex + 1, size - insertIndex);
+        storage[insertIndex] = r;
     }
-
-    @Override
-    public void update(Resume r) {
-    }
-
-    @Override
-    public void delete(String uuid) {
-    }
-
 }
